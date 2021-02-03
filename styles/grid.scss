@@ -1,0 +1,37 @@
+$gutter: 20px;
+$cols: 12;
+
+.grid {
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -$gutter / 2;
+  margin-right: $gutter / 2;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.col {
+  padding-left: $gutter / 2;
+  padding-right: $gutter / 2;
+  width: 100%;
+}
+
+@for $i from 1 through $cols {
+  .col-#{$i} {
+    width: $i / $cols * 100%;
+  }
+  .offset-col-#{$i} {
+    margin-left: $i / $cols * 100%;
+  }
+}
+
+.grid__center {
+  width: 100%;
+  text-align: center;
+}
