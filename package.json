@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "sass": "node-sass --source-map-embed ./styles/styles.scss ./public/styles.css"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/jaykaytherobot/vef2-2021-v2#readme",
   "devDependencies": {
+    "node-sass": "^5.0.0",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
