@@ -5,21 +5,28 @@ export const router = express.Router();
 
 const ssnPattern = '^[0-9]{6}-?[0-9]{4}$';
 
-const formInfo = {
+function getFormInfo() {
+  return {
   'name': '',
   'name_invalid': false,
   'ssn': '',
   'ssn_invalid': false,
-};
+  'errors': []
+  }
+}
 
 router.get('/', (req, res, next) =>{
+  const formInfo = getFormInfo();
   res.render('form', { formInfo });
 });
 
-router.post('/post', 
+router.post('/', 
   body('name')
     .isLength({ min: 1 })
     .withMessage('Nafn má ekki vera tómt'),
+  body('name')
+    .isLength({ max: 128 })
+    .withMessage('Nafn má mest vera 128 stafir'),
   body('ssn')
     .isLength({ min: 1 })
     .withMessage('Kennitala má ekki vera tóm'),
@@ -35,16 +42,18 @@ router.post('/post',
     } = req.body;
 
     const errors = validationResult(req);
+    const formInfo = getFormInfo();
 
     if(!errors.isEmpty()) {
-      const errorMessages = errors.array().map(i => i.msg);
-      return res.send(
-        `${template(name, ssn)}
-        <p>Villur</p>
-        <ul>
-         <li>${errorMessages.join('</li><li>')}</li>
-        </ul>`
-      );
+      errors.array().forEach((err) => {
+        err.param === 'ssn' ? formInfo.ssn_invalid = true : '';
+        err.param === 'name' ? formInfo.name_invalid = true : '';
+      });
+      formInfo.name = name;
+      formInfo.ssn = ssn;
+      formInfo.errors = errors.array();
+      console.log(errors.array());
+      return res.render('form', { formInfo });
     }
     res.redirect('/motekid');
   }

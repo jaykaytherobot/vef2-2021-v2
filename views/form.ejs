@@ -11,7 +11,7 @@
   <div class="grid">
     <h1 class="row col">Undirskriftalisti</h1>
   </div>
-  <form class="grid form" method="post" action="/post">
+  <form class="grid form" method="post" action="/">
     <div class="row">
       <label class="col col-2" for="name">Nafn*</label>
       <input class="col col-9 <%= formInfo.name_invalid ? 'invalid':'valid' %>" type="text" name="name"
@@ -36,6 +36,13 @@
       <button>Skrifa undir</button>
     </div>
   </form>
+  <% if(formInfo.errors.length !== 0) {%>
+    <ul>
+      <% for(let i = 0; i < formInfo.errors.length; i++) { %>
+        <li><%= formInfo.errors[i].msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
 </body>
 
 </html>
