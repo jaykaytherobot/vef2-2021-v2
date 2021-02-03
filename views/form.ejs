@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <title>Undirskriftalisti</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <form method="post" action="/post">
+    <label for="name">Nafn*</label>
+    <input class="<%= formInfo.name_invalid ? 'invalid':'valid' %>"type="text" name="name" value="<%= formInfo.name %>" required><br>
+    <label for="ssn">Kennitala*</label>
+    <input class="<%= formInfo.ssn_invalid ? 'invalid':'valid'%>"type="text" name="ssn" placeholder="000000-0000" value="<%= formInfo.ssn %>" required><br>
+    <label for="athugsemdir">Athugasemd:</label>
+    <textarea name="athugasemdir" cols="50" rows="10">
+    </textarea>
+    <label for="ekkibirta">Ekki birta nafn á lista</label>
+    <input type="checkbox" name="ekkibirta"/><br>
+    <button>Skrifa undir</button>
+  </form>
+</html>
