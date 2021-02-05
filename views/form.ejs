@@ -23,13 +23,13 @@
         value="<%= formInfo.ssn %>" required><br>
     </div>
     <div class="row">
-      <label class="col col-2" for="athugsemdir">Athugasemd:</label>
-      <textarea class="col col-9" name="athugasemdir">
+      <label class="col col-2" for="ath">Athugasemd:</label>
+      <textarea class="col col-9" name="ath">
     </textarea>
     </div>
     <div class="grid__center">
-      <label class="" for="ekkibirta">
-      <input class="" type="checkbox" name="ekkibirta" />
+      <label class="" for="anon">
+      <input class="" type="checkbox" value="true" name="anon" />
       Ekki birta nafn á lista</label>
     </div>
     <div class="grid__center">
@@ -43,6 +43,21 @@
       <% } %>
     </ul>
   <% } %>
+  <hr>
+  <table class="grid">
+    <tr class="row">
+      <td class="col col-2">Dags</td>
+      <td class="col col-2">Nafn</td>
+      <td class="col col-7">Athugasemd</td>
+    </tr>
+    <% signatures.forEach((sign) => { %>
+      <tr class="row">
+        <td class="col col-2"><%= sign.signed %></td>
+        <td class="col col-2"><%= sign.name %></td>
+        <td class="col col-7"><%= sign.comment %></td>
+      </tr>
+    <% }); %>
+  </table>
 </body>
 
 </html>
