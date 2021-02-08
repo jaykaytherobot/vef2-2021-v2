@@ -11,7 +11,7 @@ const {
 const connectionOptions = {connectionString};
 
 if(!dev) {
-  connectionOptions.ssl = true
+  connectionOptions.ssl = false
 }
 
 const pool= new pg.Pool(connectionOptions);
