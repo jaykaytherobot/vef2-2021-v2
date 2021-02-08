@@ -18,8 +18,7 @@ function getFormInfo() {
 
 router.get('/', async (req, res, next) =>{
   const formInfo = getFormInfo();
-  //const signatures = await getSignatures();
-  const signatures = []
+  const signatures = await getSignatures();
   res.render('form', { formInfo, signatures });
 });
 
