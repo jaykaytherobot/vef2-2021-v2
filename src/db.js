@@ -1,5 +1,4 @@
-import pg from 'pg';
-pg.defaults.ssl = true;
+import pg from 'pg';  
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,7 +7,12 @@ const {
   DATABASE_URL: connectionString
 } = process.env;
 
-const pool= new pg.Pool({ connectionString });
+const pool= new pg.Pool({ 
+  connectionString, 
+  ssl: {
+  rejectUnauthorized: false
+  }
+});
 
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
