@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.use(router);
+// app.use(router);
 
 function errorHandling(err, req, res, next) {
   console.log(err);
