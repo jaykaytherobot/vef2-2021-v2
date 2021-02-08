@@ -37,13 +37,16 @@
     </div>
   </form>
   <% if(formInfo.errors.length !== 0) {%>
-    <ul>
+    <ul class="grid">
       <% for(let i = 0; i < formInfo.errors.length; i++) { %>
         <li><%= formInfo.errors[i].msg %></li>
       <% } %>
     </ul>
   <% } %>
   <hr>
+  <div class="grid">
+    <h2 class="row col">Undirskriftir</h2>
+  </div>
   <table class="grid">
     <tr class="row">
       <td class="col col-2">Dags</td>
@@ -51,11 +54,11 @@
       <td class="col col-7">Athugasemd</td>
     </tr>
     <% signatures.forEach((sign) => { %>
-      <tr class="row">
-        <td class="col col-2"><%= sign.signed %></td>
-        <td class="col col-2"><%= sign.name %></td>
-        <td class="col col-7"><%= sign.comment %></td>
-      </tr>
+        <tr class="row">
+          <td class="col col-2"><%= typeof sign.signed %></td>
+          <td class="col col-2"><%= sign.anonymous ? '' : sign.name %></td>
+          <td class="col col-7"><%= sign.comment %></td>
+        </tr>
     <% }); %>
   </table>
 </body>

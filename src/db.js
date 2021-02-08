@@ -1,5 +1,11 @@
 import pg from 'pg';
-const connectionString = 'postgres://vef1:vefforritun@localhost/v2';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const {
+  DATABASE_URL: connectionString
+} = process.env;
 
 const pool= new pg.Pool({ connectionString });
 
@@ -16,11 +22,15 @@ export const sign = async (signature) => {
     console.log('rows :>>', result.rows);
   }
   catch (e) {
-    console.error('Error selecting', e);
+    if (e.code === '23505' && e.constraint === 'signatures_nationalid_key') {
+      return -1;
+    }
+    console.error('Error selecting', e.code);
   }
   finally {
     client.release();
   }
+  return 0;
 }
 
 export async function getSignatures() {
