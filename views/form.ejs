@@ -27,12 +27,12 @@
       <textarea class="col col-9" name="ath">
     </textarea>
     </div>
-    <div class="grid__center">
+    <div class="grid-center">
       <label class="" for="anon">
       <input class="" type="checkbox" value="true" name="anon" />
       Ekki birta nafn á lista</label>
     </div>
-    <div class="grid__center">
+    <div class="grid-center">
       <button>Skrifa undir</button>
     </div>
   </form>
@@ -52,20 +52,26 @@
   <div class="grid">
     <h2 class="row col">Undirskriftir</h2>
   </div>
+  <% if(signatures.length === 0) { %>
+    <div class="grid">
+      <p class="row col villur">Engar undirskriftir</p>
+    </div>
+  <% } else { %>
   <table class="grid">
-    <tr class="row tb_row tb_header">
+    <tr class="row tb-row tb-header">
       <td class="col col-2"><strong>Dags</strong></td>
       <td class="col col-2"><strong>Nafn</strong></td>
       <td class="col col-7"><strong>Athugasemd</strong></td>
     </tr>
     <% signatures.forEach((sign) => { %>
-        <tr class="row tb_row">
+        <tr class="row tb-row">
           <td class="col col-2"><%= sign.signed %></td>
           <td class="col col-2"><%= sign.anonymous ? '' : sign.name %></td>
           <td class="col col-7"><%= sign.comment %></td>
         </tr>
     <% }); %>
   </table>
+  <% } %>
 </body>
 
 </html>

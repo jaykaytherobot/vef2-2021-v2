@@ -3,16 +3,18 @@
 $border-color: #c9ca9b;
 
 * {
-  font-size: 16px;
-  font-family: 'Times New Roman';
   box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
 }
 
 body {
   background-color: #ffffec;
 }
 
-h1, h2, .villur {
+h1,
+h2,
+.villur {
   justify-content: center;
 }
 
@@ -37,10 +39,10 @@ textarea {
 button {
   background-color: #fff;
   border: 1px solid $border-color;
-  font-size: 1.5em;
-  padding: 10px 20px;
-  margin: 20px 0px;
   border-radius: 5px;
+  font-size: 1.5em;
+  margin: 20px 0;
+  padding: 10px 20px;
 }
 
 hr {
@@ -53,7 +55,7 @@ td {
   padding: 10px 5px;
 }
 
-.tb_header {
+.tb-header {
   text-align: center;
 }
 

@@ -1,27 +1,25 @@
-import pg from 'pg';  
+import pg from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const {
   DATABASE_URL: connectionString,
-  DEV: dev = false
+  DEV: dev = false,
 } = process.env;
 
-const connectionOptions = {connectionString};
+const connectionOptions = { connectionString };
 
-if(!dev) {
+if (!dev) {
   connectionOptions.ssl = {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  };
 }
 
-console.log(connectionOptions);
+const pool = new pg.Pool(connectionOptions);
 
-const pool= new pg.Pool(connectionOptions);
-
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
+pool.on('error', (err, client) => { // eslint-disable-line
+  console.error('Unexpected error on idle client', err); // eslint-disable-line
   process.exit(-1);
 });
 
@@ -29,20 +27,17 @@ export const sign = async (signature) => {
   const client = await pool.connect();
   const query = 'insert into signatures(name, nationalId, comment, anonymous) values($1, $2, $3, $4) returning *;';
   try {
-    const result = await client.query(query, signature);
-    console.log('rows :>>', result.rows);
-  }
-  catch (e) {
+    await client.query(query, signature);
+  } catch (e) {
     if (e.code === '23505' && e.constraint === 'signatures_nationalid_key') {
       return -1;
     }
     console.error('Error selecting', e.code);
-  }
-  finally {
+  } finally {
     client.release();
   }
   return 0;
-}
+};
 
 export async function getSignatures() {
   const client = await pool.connect();
@@ -51,11 +46,9 @@ export async function getSignatures() {
   try {
     const result = await client.query(query);
     rows = result.rows;
-  }
-  catch (e) {
+  } catch (e) {
     console.error('Error selecting', e);
-  }
-  finally {
+  } finally {
     client.release();
   }
   return rows;

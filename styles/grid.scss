@@ -2,22 +2,22 @@ $gutter: 20px;
 $cols: 12;
 
 .grid {
+  margin: 0 auto;
   max-width: 1400px;
   width: 90%;
-  margin: 0 auto;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 20px;
   margin-left: -$gutter / 2;
   margin-right: $gutter / 2;
-  margin-bottom: 20px;
   width: 100%;
 }
 
-.tb_row {
-  margin-bottom: 0px;
+.tb-row {
+  margin-bottom: 0;
 }
 
 .col {
@@ -35,7 +35,7 @@ $cols: 12;
   }
 }
 
-.grid__center {
-  width: 100%;
+.grid-center {
   text-align: center;
+  width: 100%;
 }
