@@ -12,7 +12,12 @@ $cols: 12;
   flex-wrap: wrap;
   margin-left: -$gutter / 2;
   margin-right: $gutter / 2;
+  margin-bottom: 20px;
   width: 100%;
+}
+
+.tb_row {
+  margin-bottom: 0px;
 }
 
 .col {

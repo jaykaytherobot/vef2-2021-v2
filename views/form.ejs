@@ -37,25 +37,30 @@
     </div>
   </form>
   <% if(formInfo.errors.length !== 0) {%>
-    <ul class="grid">
-      <% for(let i = 0; i < formInfo.errors.length; i++) { %>
-        <li><%= formInfo.errors[i].msg %></li>
-      <% } %>
-    </ul>
+    <div class="grid">
+      <p class="row col villur"><strong>Villur við undirskrift</strong></p>
+      <ul class="row col villur">
+        <% for(let i = 0; i < formInfo.errors.length; i++) { %>
+          <li><%= formInfo.errors[i].msg %></li>
+        <% } %>
+      </ul>
+    </div>
   <% } %>
-  <hr>
+  <div class="grid">
+    <hr class="grid row col">
+  </div>
   <div class="grid">
     <h2 class="row col">Undirskriftir</h2>
   </div>
   <table class="grid">
-    <tr class="row">
-      <td class="col col-2">Dags</td>
-      <td class="col col-2">Nafn</td>
-      <td class="col col-7">Athugasemd</td>
+    <tr class="row tb_row tb_header">
+      <td class="col col-2"><strong>Dags</strong></td>
+      <td class="col col-2"><strong>Nafn</strong></td>
+      <td class="col col-7"><strong>Athugasemd</strong></td>
     </tr>
     <% signatures.forEach((sign) => { %>
-        <tr class="row">
-          <td class="col col-2"><%= typeof sign.signed %></td>
+        <tr class="row tb_row">
+          <td class="col col-2"><%= sign.signed %></td>
           <td class="col col-2"><%= sign.anonymous ? '' : sign.name %></td>
           <td class="col col-7"><%= sign.comment %></td>
         </tr>

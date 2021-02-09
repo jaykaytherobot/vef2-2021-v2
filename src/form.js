@@ -41,6 +41,13 @@ async (req, res, next) => {
   const formInfo = getFormInfo();
   let signatures = await getSignatures();
 
+  const {
+    name,
+    ssn,
+    ath,
+    anon
+  } = req.body;
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //villur í gögnum.
@@ -52,17 +59,13 @@ async (req, res, next) => {
         formInfo.name_invalid = true;
       }
     });
+    formInfo.name = formInfo.name_invalid ? '' : name;
+    formInfo.ssn = formInfo.ssn_invalid ? '' : ssn;
     formInfo.errors = errors.array();
     res.render('form', { formInfo, signatures});
     return;
   }
   // gögn eru OK
-  const {
-    name,
-    ssn,
-    ath,
-    anon
-  } = req.body;
   
   let result = await sign([name, ssn, ath, !!anon]);
   if(result !== 0) { // duplicate ssn

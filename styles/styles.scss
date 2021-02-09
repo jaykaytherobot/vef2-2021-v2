@@ -1,16 +1,46 @@
 @import 'grid';
 
-.invalid {
-  background-color: #f005;
+$border-color: #c9ca9b;
+
+* {
+  font-size: 16px;
+  font-family: 'Times New Roman';
+  box-sizing: border-box;
 }
 
-h1, h2 {
+body {
+  background-color: #ffffec;
+}
+
+h1, h2, .villur {
   justify-content: center;
 }
 
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+input {
+  border: 1px solid $border-color;
+  border-radius: 5px;
+}
+
+textarea {
+  border: 1px solid $border-color;
+  border-radius: 5px;
+}
+
 button {
+  background-color: #fff;
+  border: 1px solid $border-color;
+  font-size: 1.5em;
   padding: 10px 20px;
   margin: 20px 0px;
+  border-radius: 5px;
 }
 
 hr {
@@ -18,7 +48,15 @@ hr {
 }
 
 td {
-  border: 1px solid black;
+  border: 1px solid $border-color;
   border-collapse: collapse;
   padding: 10px 5px;
+}
+
+.tb_header {
+  text-align: center;
+}
+
+.invalid {
+  background-color: #f005;
 }
