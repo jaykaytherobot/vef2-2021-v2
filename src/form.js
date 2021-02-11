@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import { getSignatures, sign } from './db.js';
+import xss from 'xss';
 
 export const router = express.Router();
 
@@ -37,6 +38,12 @@ router.post('/',
     .withMessage('Kennitala verður að vera á forminu 0000000000 eða 000000-0000'),
   body('ssn')
     .blacklist('-'),
+  body('ath')
+    .trim()
+    .escape(),
+  body('ath')
+    .isLength({ max: 512 })
+    .withMessage('Athugasemd getur ekki verið meira en 512 stafir'),
   async (req, res, next) => { // eslint-disable-line
     const formInfo = getFormInfo();
     let signatures = await getSignatures();
@@ -47,6 +54,11 @@ router.post('/',
       ath,
       anon,
     } = req.body;
+
+    let xss_name = xss(name);
+    let xss_ssn = xss(ssn);
+    let xss_ath = xss(ath);
+    let xss_anon = !!anon;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -59,15 +71,15 @@ router.post('/',
           formInfo.name_invalid = true;
         }
       });
-      formInfo.name = formInfo.name_invalid ? '' : name;
-      formInfo.ssn = formInfo.ssn_invalid ? '' : ssn;
+      formInfo.name = formInfo.name_invalid ? '' : xss_name;
+      formInfo.ssn = formInfo.ssn_invalid ? '' : xss_ssn;
       formInfo.errors = errors.array();
       res.render('form', { formInfo, signatures });
       return;
     }
     // gögn eru OK
 
-    const result = await sign([name, ssn, ath, !!anon]);
+    const result = await sign([xss_name, xss_ssn, xss_ath, xss_anon]);
     if (result !== 0) { // duplicate ssn
       res.redirect('/villa');
       return;
